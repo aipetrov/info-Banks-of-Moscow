@@ -23,11 +23,7 @@ namespace Info_Banks_of_Moscow
             get { return _login; }
             set { _login = value; }
         }
-
-        public User(string login)
-        {        
-            _login = login;
-        }
+              
 
         public User(string name, string login)
         {

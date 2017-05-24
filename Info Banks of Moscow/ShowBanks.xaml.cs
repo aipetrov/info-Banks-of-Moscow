@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,53 +12,55 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 
 namespace Info_Banks_of_Moscow
 {
     /// <summary>
-    /// Логика взаимодействия для Profile.xaml
+    /// Логика взаимодействия для ShowBanks.xaml
     /// </summary>
-    public partial class Profile : Window
+    public partial class ShowBanks : Window
     {
-        public Profile()
-        { InitializeComponent();
+        public ShowBanks()
+        {   InitializeComponent();
 
-            List<User> Users = new List<User>();
-            FileStream fs = new FileStream("name.txt", FileMode.Open);
-            using (StreamReader sr = new StreamReader(fs))
+
+            //string[] ReadBanks = File.ReadAllLines("Banks.txt");
+
+            //List<Bank> Banks = new List<Bank>();
+
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
             {
-                string str = sr.ReadLine();
-                string[] loginname = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                User AuthorisedUser = new User(loginname[1], loginname[0]);
-                Users.Add(AuthorisedUser);
+                List<Bank> Banks = (List<Bank>)formatter.Deserialize(fs);
+                ShowBanksDataGrid.ItemsSource = Banks;
+               
+                              
             }
-                        
-            Greeting.Content = "Здравствуйте, " + Users[0].Name + "!";
+
+ 
+            //for (int i = 0; i < ReadBanks.Length; i+=5)
+            //{                
+            //    Bank NewBank = new Bank(ReadBanks[i], ReadBanks[i+1], ReadBanks[i+2], int.Parse(ReadBanks[i+3]), ReadBanks[i+4]);
+            //    Banks.Add(NewBank);
+            //}
+
             
 
+          
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {           
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
 
-            MainWindow LogInWindow = new MainWindow();
-            LogInWindow.Show();
+            Profile ProfileWindow = new Profile();
+            ProfileWindow.Show();
+
         }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-
-            ShowBanks ShowBanksWindow = new ShowBanks();            
-            ShowBanksWindow.Show();
-        }
-
+                
         private void AddBankButton_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
@@ -67,7 +68,6 @@ namespace Info_Banks_of_Moscow
             AddBank AddBankWindow = new AddBank();
             AddBankWindow.Show();
         }
-               
 
         private void FindBankButton_Click(object sender, RoutedEventArgs e)
         {

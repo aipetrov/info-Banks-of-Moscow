@@ -69,10 +69,94 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddBank.xaml.cs">
+      <DependentUpon>AddBank.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddBankPage.xaml.cs">
+      <DependentUpon>AddBankPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Bank.cs" />
+    <Compile Include="DeleteBank.xaml.cs">
+      <DependentUpon>DeleteBank.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteBankPage.xaml.cs">
+      <DependentUpon>DeleteBankPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FindBank.xaml.cs">
+      <DependentUpon>FindBank.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FindBankGuestPage.xaml.cs">
+      <DependentUpon>FindBankGuestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FindBankPage.xaml.cs">
+      <DependentUpon>FindBankPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Guest.xaml.cs">
+      <DependentUpon>Guest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GuestPage.xaml.cs">
+      <DependentUpon>GuestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages.cs" />
+    <Compile Include="ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RegisterWindow.xaml.cs">
       <DependentUpon>RegisterWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ShowBanks.xaml.cs">
+      <DependentUpon>ShowBanks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShowBanksPage.xaml.cs">
+      <DependentUpon>ShowBanksPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="User.cs" />
+    <Page Include="AddBank.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddBankPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeleteBank.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeleteBankPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FindBank.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FindBankGuestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FindBankPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Guest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GuestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -85,11 +169,27 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ProfileWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="RegisterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RegisterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShowBanks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShowBanksPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

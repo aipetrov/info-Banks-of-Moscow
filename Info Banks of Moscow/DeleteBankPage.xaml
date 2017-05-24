@@ -1,0 +1,54 @@
+﻿<Page x:Class="Info_Banks_of_Moscow.DeleteBankPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Info_Banks_of_Moscow"
+      mc:Ignorable="d"
+      Title="DeleteBankPage">
+
+    <Grid Margin="0,0,0,10">
+        <DataGrid x:Name="ShowBanksDataGrid" Margin="17,61,17,168" AutoGenerateColumns="False"  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MinColumnWidth="51" ColumnWidth="Auto">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Название"  FontSize="14"/>
+                <DataGridTextColumn Binding="{Binding Address}" Header="Адрес"  FontSize="14"/>
+                <DataGridTextColumn Binding="{Binding Metro}"  Header="Метро"  FontSize="14"/>
+                <DataGridTextColumn Binding="{Binding Telephone}"  Header="Телефон" FontSize="14"/>
+                <DataGridTextColumn Binding="{Binding Rate}"  Header="Рейтинг"  FontSize="14"/>
+                <DataGridTextColumn Binding="{Binding Opinion}"  Header="Отзыв"  FontSize="14"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Вы можете удалить:" HorizontalAlignment="Left" Margin="17,26,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <ComboBox x:Name="AbleToDeleteBanksTextBox" Margin="17,0,17,125" Height="26" VerticalAlignment="Bottom"/>
+        <Button x:Name="DeleteBankButton" Content="Удалить банк" HorizontalAlignment="Left" Margin="17,0,0,60" Width="164" FontSize="14" Height="43" VerticalAlignment="Bottom" Click="DeleteBankButton_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFF33F3F" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="BackButton" Content="Профиль" HorizontalAlignment="Left" Height="43" Margin="396,0,0,60" VerticalAlignment="Bottom" Width="164" FontSize="14" Click="BackButton_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFF33F3F" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="ShowBanksButton" Content="Банки" HorizontalAlignment="Left" Height="43" Margin="209,0,0,60" VerticalAlignment="Bottom" Width="164" FontSize="14" Click="ShowBanksButton_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFF33F3F" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+    </Grid>
+</Page>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,18 +11,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Data.SqlClient;
-using System.Data;
 
 namespace Info_Banks_of_Moscow
 {
     /// <summary>
-    /// Логика взаимодействия для RegisterWindow.xaml
+    /// Логика взаимодействия для RegisterPage.xaml
     /// </summary>
-    public partial class RegisterWindow : Window
+    public partial class RegisterPage : Page
     {
-        public RegisterWindow()
+        public RegisterPage()
         {
             InitializeComponent();
             LoginTextBox.Focus();
@@ -30,7 +30,7 @@ namespace Info_Banks_of_Moscow
         private void CreateAccountButton_Click(object sender, RoutedEventArgs e)
         {
             SqlConnection sqlcon = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = c:\users\андрей\documents\visual studio 2017\Projects\Info Banks of Moscow\Info Banks of Moscow\Database1.mdf; Integrated Security = True");
-            SqlCommand sqlcommand = new SqlCommand("Select Login From [Table] where Login= '" + LoginTextBox.Text + "'", sqlcon);            
+            SqlCommand sqlcommand = new SqlCommand("Select Login From [Table] where Login= '" + LoginTextBox.Text + "'", sqlcon);
             sqlcon.Open();
             SqlDataReader sqlreader = sqlcommand.ExecuteReader();
 
@@ -42,7 +42,7 @@ namespace Info_Banks_of_Moscow
                     {
                         MessageBox.Show("Пользователь с таким логином уже существует.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-                    
+
                 }
             }
             else
@@ -58,9 +58,9 @@ namespace Info_Banks_of_Moscow
                         sqlcommandinsert.Connection.Open();
                         sqlcommandinsert.ExecuteNonQuery();
                         MessageBox.Show("Регистрация прошла успешно.", "Готово", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-                        this.Hide();
-                        MainWindow MainWindow = new MainWindow();
-                        MainWindow.Show();
+
+                        LoginPage LoginPage = new LoginPage();
+                        NavigationService.Navigate(LoginPage);
                     }
                 }
                 else
@@ -75,16 +75,13 @@ namespace Info_Banks_of_Moscow
                     }
                 }
             }
-            }
 
-                private void LogInButton_Click(object sender, RoutedEventArgs e)
-                {
-                    this.Hide();
-
-                    MainWindow LogInWindow = new MainWindow();
-                    LogInWindow.Show();
-                }
-            }
         }
-    
 
+        private void LogInButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoginPage LoginPage = new LoginPage();
+            NavigationService.Navigate(LoginPage);
+        }
+    }
+}

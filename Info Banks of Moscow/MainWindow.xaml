@@ -5,15 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Info_Banks_of_Moscow"
         mc:Ignorable="d"
-        Title="Вход" Height="257" Width="361">
+        Title="Вход" Height="457" Width="657">
     <Grid>
-        <TextBox x:Name="LoginTextBox" HorizontalAlignment="Left" Height="23" Margin="121,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" FontSize="14"/>
-        <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Margin="121,76,0,0" VerticalAlignment="Top" Width="180" FontSize="14"/>
-        <Label Content="Логин:" HorizontalAlignment="Left" Margin="64,31,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Label Content="Пароль:" HorizontalAlignment="Left" Margin="55,69,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Button x:Name="LoginButton" Content="Войти" HorizontalAlignment="Left" Margin="121,124,0,0" VerticalAlignment="Top" Width="125" Height="43" FontSize="14" Click="LoginButton_Click"/>
-        <Button x:Name="RegisterButton" Content="Зарегистрироваться" HorizontalAlignment="Left" Margin="29,186,0,0" VerticalAlignment="Top" Width="142" Height="28" FontSize="14" Click="RegisterButton_Click"/>
-        <Button x:Name="GuestButton" Content="Гостевой режим" HorizontalAlignment="Left" Margin="187,186,0,0" VerticalAlignment="Top" Width="142" Height="28" FontSize="14"/>
-
+        <Frame Name="frameMain" NavigationUIVisibility="Hidden" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="White">
+            <!--<TextBox x:Name="LoginTextBox" HorizontalAlignment="Left" Height="23" Margin="121,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="180" FontSize="14"/>
+            <PasswordBox x:Name="PasswordBox" HorizontalAlignment="Left" Margin="121,76,0,0" VerticalAlignment="Top" Width="180" FontSize="14"/>
+            <Label Content="Логин:" HorizontalAlignment="Left" Margin="64,31,0,0" VerticalAlignment="Top" FontSize="14"/>
+            <Label Content="Пароль:" HorizontalAlignment="Left" Margin="55,69,0,0" VerticalAlignment="Top" FontSize="14"/>
+            <Button x:Name="LoginButton" Content="Войти" HorizontalAlignment="Left" Margin="121,124,0,0" VerticalAlignment="Top" Width="125" Height="43" FontSize="14" Click="LoginButton_Click">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                        <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                        <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                        <GradientStop Color="#FF5EE45E" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="RegisterButton" Content="Зарегистрироваться" HorizontalAlignment="Left" Margin="29,186,0,0" VerticalAlignment="Top" Width="142" Height="28" FontSize="14" Click="RegisterButton_Click">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                        <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                        <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                        <GradientStop Color="#FF00B1CD" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Button x:Name="GuestButton" Content="Гостевой режим" HorizontalAlignment="Left" Margin="187,186,0,0" VerticalAlignment="Top" Width="142" Height="28" FontSize="14" Click="GuestButton_Click">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                        <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                        <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                        <GradientStop Color="#FFFFF638" Offset="1"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>-->
+        </Frame>
     </Grid>
 </Window>

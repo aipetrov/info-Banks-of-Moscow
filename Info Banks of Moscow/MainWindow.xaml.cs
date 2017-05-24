@@ -14,49 +14,84 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SqlClient;
 using System.Data;
+using System.IO;
 
 namespace Info_Banks_of_Moscow
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
+    
     public partial class MainWindow : Window
-    {
+    {        
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
+            frameMain.Navigate(new LoginPage());
+            //LoginTextBox.Focus();
         }
 
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
-        {
-            SqlConnection con = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = c:\users\андрей\documents\visual studio 2017\Projects\Info Banks of Moscow\Info Banks of Moscow\Database1.mdf; Integrated Security = True");
-            SqlDataAdapter sda = new SqlDataAdapter("Select Count (*) From [Table] where Login='"+ LoginTextBox.Text + "'and Password='" + PasswordBox.Password+"'", con);
-            DataTable dt = new DataTable();
-            sda.Fill(dt);
+        //private void LoginButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    SqlConnection sqlcon = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = c:\users\андрей\documents\visual studio 2017\Projects\Info Banks of Moscow\Info Banks of Moscow\Database1.mdf; Integrated Security = True");
+        //    SqlDataAdapter sda = new SqlDataAdapter("Select Count (*) From [Table] where Login='"+ LoginTextBox.Text + "'and Password='" + PasswordBox.Password+"'", sqlcon);
 
-            if (dt.Rows[0][0].ToString() == "1") 
-            {
-                User AuthorisedUser = new User(LoginTextBox.Text);
-                this.Hide();
+        //    DataTable Table = new DataTable();
+        //    sda.Fill(Table);
 
-                Profile ProfileWindow = new Profile();
-                ProfileWindow.Show();
+        //    if (Table.Rows[0][0].ToString() == "1")
+        //    {
+        //        SqlCommand sqlcommand = new SqlCommand("Select Name FROM [Table] where Login='" + LoginTextBox.Text + "'and Password='" + PasswordBox.Password + "'",  sqlcon);
+        //        sqlcon.Open();
+
+        //        SqlDataReader sqlreader = sqlcommand.ExecuteReader();
+
+        //        List<User> Users = new List<User>();
+
+        //        while (sqlreader.Read())
+        //        {
+        //            User AuthorisedUser = new User(sqlreader.GetString(0), LoginTextBox.Text);
+        //            Users.Add(AuthorisedUser);
+                               
+        //        }
+
+        //        FileStream fs = new FileStream("name.txt", FileMode.Create);
+        //        using (StreamWriter sw = new StreamWriter(fs))
+        //        {
+        //            sw.Write(LoginTextBox.Text + " " + Users[0].Name);
+        //        }
+                                
+        //        this.Hide();
+
+                
+                
+        //        Profile ProfileWindow = new Profile();        
+        //        ProfileWindow.Show();
+
                
-            }
-            else
-            {
-                MessageBox.Show("Пользователя с таким логином и паролем не существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Пользователя с таким логином и паролем не существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        //    }
 
             
-        }
+        //}
 
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
+        //private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.Hide();
 
-            RegisterWindow RegisterWindow = new RegisterWindow();
-            RegisterWindow.Show();
-        }
+        //    RegisterWindow RegisterWindow = new RegisterWindow();
+        //    RegisterWindow.Show();
+        //}
+
+        //private void GuestButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.Hide();
+
+        //    Guest GuestWindow = new Guest();
+        //    GuestWindow.Show();
+        //}
     }
 }
