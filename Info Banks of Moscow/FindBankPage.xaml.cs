@@ -30,77 +30,60 @@ namespace Info_Banks_of_Moscow
 
         private void FindBankButton_Click(object sender, RoutedEventArgs e)
         {
-            //if (NameTextBox.Text == null)
-            //{
-            //    NameTextBox.Text = "-";
-            //}
-
-            //if (AddressTextBox.Text == null)
-            //{
-            //    AddressTextBox.Text = "-";
-            //}
-
-            //if (MetroTextBox.Text == null)
-            //{
-            //    MetroTextBox.Text = "-";
-            //}
-
-            //if (RateComboBox.Text == null)
-            //{
-            //    RateComboBox.Text = "0";
-            //}
-
-            //string[] ReadBanks = File.ReadAllLines("Banks.txt");
-
-            //List<Bank> Banks = new List<Bank>();
-
-            //for (int i = 0; i < ReadBanks.Length; i += 5)
-            //{
-            //    Bank NewBank = new Bank(ReadBanks[i], ReadBanks[i + 1], ReadBanks[i + 2], int.Parse(ReadBanks[i + 3]), ReadBanks[i + 4]);
-            //    Banks.Add(NewBank);
-            //}
-
-            BinaryFormatter formatter = new BinaryFormatter();
-
-            List<Bank> Banks = new List<Bank>();
-
-            using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
+            try
             {
-                Banks = (List<Bank>)formatter.Deserialize(fs);
-            }
-
-            List<Bank> FoundBanks = new List<Bank>();
-
-            for (int i = 0; i < Banks.Count; i++)
-            {
-
-                if (((Banks[i].Name == NameTextBox.Text) || (NameTextBox.Text == "")) &&
-                ((Banks[i].Address == AddressTextBox.Text) || (AddressTextBox.Text == "")) &&
-                ((Banks[i].Metro == MetroTextBox.Text) || (MetroTextBox.Text == "")) &&
-                ((Banks[i].Rate == RateComboBox.Text) || (RateComboBox.Text == "") || (RateComboBox.Text == "-")))
+                if (NameTextBox.Text != "")
                 {
-                    FoundBanks.Add(Banks[i]);
+                    string s = NameTextBox.Text;
+                    s = s.Substring(0, 1).ToUpper() + s.Remove(0, 1);
+                    NameTextBox.Text = s;
                 }
-                //}
-                //else
-                //{
-                //    NameTextBox.Text = " ";
-                //    AddressTextBox.Text = " ";
-                //    MetroTextBox.Text = " ";
-                //    RateComboBox.Text = " ";
-                //    if ((Banks[i].Name == NameTextBox.Text) || (Banks[i].Address == AddressTextBox.Text) || (Banks[i].Metro == MetroTextBox.Text) || (Banks[i].Rate == int.Parse(RateComboBox.Text)))
-                //    {
-                //        FoundBanks.Add(Banks[i]);
-                //    }
-                //}
-            }
 
-            ShowBanksDataGrid.ItemsSource = FoundBanks;
+                if (MetroTextBox.Text != "")
+                {
+                    string s = MetroTextBox.Text;
+                    s = s.Substring(0, 1).ToUpper() + s.Remove(0, 1);
+                    MetroTextBox.Text = s;
+                }
 
-            if (FoundBanks.Count == 0)
-            {
-                MessageBox.Show("Банков, соответствующих выбранным критериям, не существует.", "Результат поиска", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (AddressTextBox.Text != "")
+                {
+                    string s = AddressTextBox.Text;
+                    s = s.Substring(0, 1).ToUpper() + s.Remove(0, 1);
+                    AddressTextBox.Text = s;
+                }
+
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                List<Bank> banks = new List<Bank>();
+
+                using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
+                {
+                    banks = (List<Bank>)formatter.Deserialize(fs);
+                }
+
+                List<Bank> foundBanks = new List<Bank>();
+
+                for (int i = 0; i < banks.Count; i++)
+                {
+
+                    if (((banks[i].Name == NameTextBox.Text) || (NameTextBox.Text == "")) &&
+                    ((banks[i].Address == AddressTextBox.Text) || (AddressTextBox.Text == "")) &&
+                    ((banks[i].Metro == MetroTextBox.Text) || (MetroTextBox.Text == "")) &&
+                    ((banks[i].Rate == RateComboBox.Text) || (RateComboBox.Text == "") || (RateComboBox.Text == "-")))
+                    {
+                        foundBanks.Add(banks[i]);
+                    }
+                }
+
+                ShowBanksDataGrid.ItemsSource = foundBanks;
+
+                if (foundBanks.Count == 0)
+                {
+                    MessageBox.Show("Банков, соответствующих выбранным критериям, не существует.", "Результат поиска", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
+            catch { MessageBox.Show("Что-то пошло не так...", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void ShowBanksButton_Click(object sender, RoutedEventArgs e)
@@ -113,6 +96,11 @@ namespace Info_Banks_of_Moscow
         {
             ProfilePage ProfilePage = new ProfilePage();
             NavigationService.Navigate(ProfilePage);
+        }
+
+        private void NameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
         }
     }
 }

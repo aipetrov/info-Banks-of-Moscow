@@ -7,9 +7,9 @@
       mc:Ignorable="d"
       Title="FindBankPage">
 
-    <Grid Margin="0,0,0,10">
+    <Grid Margin="0,0,0,10" Background="White">
         <Label Content="Название банка:" HorizontalAlignment="Left" Margin="197,39,0,0" VerticalAlignment="Top" FontSize="14" Height="29" Width="117"/>
-        <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Height="23" Margin="319,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="14"/>
+        <TextBox x:Name="NameTextBox" HorizontalAlignment="Left" Height="23" Margin="319,45,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="14" TextChanged="NameTextBox_TextChanged"/>
         <Label Content="Адрес:" HorizontalAlignment="Left" Margin="261,74,0,0" VerticalAlignment="Top" FontSize="14" Height="29" Width="53"/>
         <Label Content="Ближайшая станция метро:" HorizontalAlignment="Left" Margin="129,109,0,0" VerticalAlignment="Top" FontSize="14" Height="29" Width="185"/>
         <Label Content="Оценка:" HorizontalAlignment="Left" Margin="250,145,0,0" VerticalAlignment="Top" FontSize="14" Height="29" Width="64"/>
@@ -28,14 +28,20 @@
             <ComboBoxItem Content="9"/>
             <ComboBoxItem Content="10"/>
         </ComboBox>
-        <DataGrid x:Name="ShowBanksDataGrid" Margin="129,246,130,57" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MinColumnWidth="51" ColumnWidth="Auto">
+        <DataGrid x:Name="ShowBanksDataGrid" Margin="129,246,130,57" AutoGenerateColumns="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MinColumnWidth="51" ColumnWidth="Auto" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Название"  FontSize="14"/>
                 <DataGridTextColumn Binding="{Binding Address}" Header="Адрес"  FontSize="14"/>
                 <DataGridTextColumn Binding="{Binding Metro}"  Header="Метро"  FontSize="14"/>
                 <DataGridTextColumn Binding="{Binding Telephone}"  Header="Телефон" FontSize="14"/>
                 <DataGridTextColumn Binding="{Binding Rate}"  Header="Рейтинг"  FontSize="14"/>
-                <DataGridTextColumn Binding="{Binding Opinion}"  Header="Отзыв"  FontSize="14"/>
+                <DataGridTextColumn Binding="{Binding Opinion}"  Header="Отзыв" FontSize="14" MaxWidth="1000">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="FindBankButton" Content="Найти банк" Height="43" Margin="319,189,0,0" VerticalAlignment="Top" FontSize="14" HorizontalAlignment="Left" Width="149" Click="FindBankButton_Click">

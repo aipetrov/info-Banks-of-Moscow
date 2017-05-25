@@ -7,15 +7,21 @@
       mc:Ignorable="d"
       Title="DeleteBankPage">
 
-    <Grid Margin="0,0,0,10">
-        <DataGrid x:Name="ShowBanksDataGrid" Margin="17,61,17,168" AutoGenerateColumns="False"  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MinColumnWidth="51" ColumnWidth="Auto">
+    <Grid Margin="0,0,0,10" Background="White">
+        <DataGrid x:Name="ShowBanksDataGrid" Margin="17,61,17,168" AutoGenerateColumns="False"  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MinColumnWidth="51" ColumnWidth="Auto" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Название"  FontSize="14"/>
                 <DataGridTextColumn Binding="{Binding Address}" Header="Адрес"  FontSize="14"/>
                 <DataGridTextColumn Binding="{Binding Metro}"  Header="Метро"  FontSize="14"/>
                 <DataGridTextColumn Binding="{Binding Telephone}"  Header="Телефон" FontSize="14"/>
                 <DataGridTextColumn Binding="{Binding Rate}"  Header="Рейтинг"  FontSize="14"/>
-                <DataGridTextColumn Binding="{Binding Opinion}"  Header="Отзыв"  FontSize="14"/>
+                <DataGridTextColumn Binding="{Binding Opinion}"  Header="Отзыв" FontSize="14" MaxWidth="1000">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Вы можете удалить:" HorizontalAlignment="Left" Margin="17,26,0,0" VerticalAlignment="Top" FontSize="14"/>

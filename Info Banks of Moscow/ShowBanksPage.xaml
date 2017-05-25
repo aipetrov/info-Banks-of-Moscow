@@ -7,15 +7,22 @@
       mc:Ignorable="d"
       Title="ShowBanksPage">
 
-    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0,0,10,10">
-        <DataGrid x:Name="ShowBanksDataGrid" Margin="10,10,20,86" AutoGenerateColumns="False"  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MinColumnWidth="51" ColumnWidth="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <Grid Margin="0,0,10,10" Background="White">
+        <DataGrid x:Name="ShowBanksDataGrid" Margin="10,10,20,86" AutoGenerateColumns="False"  HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MinColumnWidth="51" ColumnWidth="Auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Название"  FontSize="14"/>
                 <DataGridTextColumn Binding="{Binding Address}" Header="Адрес"  FontSize="14"/>
                 <DataGridTextColumn Binding="{Binding Metro}"  Header="Метро"  FontSize="14"/>
                 <DataGridTextColumn Binding="{Binding Telephone}"  Header="Телефон" FontSize="14"/>
                 <DataGridTextColumn Binding="{Binding Rate}"  Header="Рейтинг"  FontSize="14"/>
-                <DataGridTextColumn Binding="{Binding Opinion}"  Header="Отзыв" FontSize="14"/>
+                <DataGridTextColumn Binding="{Binding Opinion}"  Header="Отзыв" FontSize="14" MaxWidth="1000">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap"></Setter>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="AddBankButton" Content="Добавить банк" Margin="164,0,0,27" FontSize="14" HorizontalAlignment="Left" Width="150" Click="AddBankButton_Click" Height="43" VerticalAlignment="Bottom">
@@ -48,7 +55,17 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="BackButton" Content="Профиль" Margin="474,0,0,27" FontSize="14" HorizontalAlignment="Left" Width="78" Click="BackButton_Click" Height="43" VerticalAlignment="Bottom">
+        <Button x:Name="BackButton" Content="Профиль" Margin="642,0,0,27" FontSize="14" HorizontalAlignment="Left" Width="78" Click="BackButton_Click" Height="43" VerticalAlignment="Bottom">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFFFF638" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="EditBankButton" Content="Редактировать банк" HorizontalAlignment="Left" Margin="474,0,0,27" Width="164" FontSize="14" Height="43" VerticalAlignment="Bottom" Click="EditBankButton_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>

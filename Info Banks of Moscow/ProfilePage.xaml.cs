@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,19 +24,22 @@ namespace Info_Banks_of_Moscow
     {
         public ProfilePage()
         {
-            InitializeComponent();
-            List<User> Users = new List<User>();
-            FileStream fs = new FileStream("name.txt", FileMode.Open);
-            using (StreamReader sr = new StreamReader(fs))
+            try
             {
-                string str = sr.ReadLine();
-                string[] loginname = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                User AuthorisedUser = new User(loginname[1], loginname[0]);
-                Users.Add(AuthorisedUser);
+                InitializeComponent();
+                List<User> users = new List<User>();
+                FileStream fs = new FileStream("name.txt", FileMode.Open);
+                using (StreamReader sr = new StreamReader(fs))
+                {
+                    string str = sr.ReadLine();
+                    string[] loginName = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    User authorisedUser = new User(loginName[1], loginName[0]);
+                    users.Add(authorisedUser);
+                }
+
+                Greeting.Content = "Здравствуйте, " + users[0].Name + "! Вы можете:";
             }
-
-            Greeting.Content = "Здравствуйте, " + Users[0].Name + "!";
-
+            catch { MessageBox.Show("Что-то пошло не так...", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); }
 
         }
 
@@ -65,8 +69,93 @@ namespace Info_Banks_of_Moscow
 
         private void DeleteBankButton_Click(object sender, RoutedEventArgs e)
         {
-            DeleteBankPage DeleteBankPage = new DeleteBankPage();
-            NavigationService.Navigate(DeleteBankPage);
+            List<Bank> ableToDeleteBanks = new List<Bank>();
+
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            List<Bank> banks = new List<Bank>();
+
+            using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
+            {
+                banks = (List<Bank>)formatter.Deserialize(fs);
+            }
+
+            FileStream fsn = new FileStream("name.txt", FileMode.Open);
+            List<User> users = new List<User>();
+
+            using (StreamReader sr = new StreamReader(fsn))
+            {
+
+                string str = sr.ReadLine();
+                string[] loginName = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                User authorisedUser = new User(loginName[1], loginName[0]);
+                users.Add(authorisedUser);
+            }
+
+
+
+            for (int i = 0; i < banks.Count; i++)
+            {
+                if (banks[i].GetUserName(banks[i]) == users[0].Login)
+                {
+                    ableToDeleteBanks.Add(banks[i]);
+                }
+            }
+            if (ableToDeleteBanks.Count == 0)
+            {
+                MessageBox.Show("Вы не можете удалить ни одного банка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                DeleteBankPage DeleteBankPage = new DeleteBankPage();
+                NavigationService.Navigate(DeleteBankPage);
+            }
+        }
+
+        private void EditBankButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<Bank> ableToEditBanks = new List<Bank>();
+
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            List<Bank> banks = new List<Bank>();
+
+            using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
+            {
+                banks = (List<Bank>)formatter.Deserialize(fs);
+            }
+
+            FileStream fsn = new FileStream("name.txt", FileMode.Open);
+            List<User> users = new List<User>();
+
+            using (StreamReader sr = new StreamReader(fsn))
+            {
+
+                string str = sr.ReadLine();
+                string[] loginName = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                User authorisedUser = new User(loginName[1], loginName[0]);
+                users.Add(authorisedUser);
+            }
+
+
+
+            for (int i = 0; i < banks.Count; i++)
+            {
+                if (banks[i].GetUserName(banks[i]) == users[0].Login)
+                {
+                    ableToEditBanks.Add(banks[i]);
+                }
+            }
+
+            if (ableToEditBanks.Count == 0)
+            {
+                MessageBox.Show("Вы не можете изменить ни одного банка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                EditBankPage EditBankPage = new EditBankPage();
+                NavigationService.Navigate(EditBankPage);
+            }
         }
     }
 }

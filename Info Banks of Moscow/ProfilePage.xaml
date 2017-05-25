@@ -4,12 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Info_Banks_of_Moscow"
-      mc:Ignorable="d" 
-      d:DesignHeight="294"
-      Title="ProfilePage" Width="466">
+      mc:Ignorable="d"
+      Title="ProfilePage" Height="298" Width="467">
 
     <Grid Background="White" HorizontalAlignment="Left" Width="466" Height="294" VerticalAlignment="Center">
-        <Label x:Name="Greeting" Content="Здравствуйте, Андрей!" HorizontalAlignment="Left" Height="31" Margin="52,38,0,0" VerticalAlignment="Top" Width="244" FontSize="14" FontStyle="Italic"/>
+        <Label x:Name="Greeting" Content="Здравствуйте, Андрей!" Height="31" Margin="52,38,62,0" VerticalAlignment="Top" FontSize="14" FontStyle="Italic"/>
         <Button x:Name="ShowBanksButton" Content="Отобразить банки" HorizontalAlignment="Left" Height="43" Margin="52,87,0,0" VerticalAlignment="Top" Width="164" FontSize="14" Click="ShowBanksButton_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -20,7 +19,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="LogOutButton" Content="Выход" HorizontalAlignment="Left" Height="43" Margin="52,203,0,0" VerticalAlignment="Top" FontSize="14" Width="164" Click="LogOutButton_Click">
+        <Button x:Name="LogOutButton" Content="Выйти" HorizontalAlignment="Left" Height="43" Margin="52,203,0,0" VerticalAlignment="Top" FontSize="14" Width="164" Click="LogOutButton_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -57,6 +56,16 @@
                     <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
                     <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
                     <GradientStop Color="#FF5EE45E" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="EditBankButton" Content="Редактировать банки" HorizontalAlignment="Left" Height="43" Margin="240,87,0,0" VerticalAlignment="Top" Width="164" FontSize="14" Click="EditBankButton_Click">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#FFEBEBEB" Offset="0.5"/>
+                    <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                    <GradientStop Color="#FFFFF638" Offset="1"/>
                 </LinearGradientBrush>
             </Button.Background>
         </Button>

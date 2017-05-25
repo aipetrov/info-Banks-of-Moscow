@@ -7,7 +7,7 @@
       mc:Ignorable="d"
       Title="RegisterPage" Height="331.707" Width="468.292">
 
-    <Grid>
+    <Grid Background="White">
         <Label Content="Введите логин:" HorizontalAlignment="Left" Margin="91,50,0,0" VerticalAlignment="Top" FontSize="14" Height="29" Width="106"/>
         <TextBox x:Name="LoginTextBox" HorizontalAlignment="Left" Height="23" Margin="202,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="14"/>
         <Label Content="Введите пароль:" HorizontalAlignment="Left" Margin="80,85,0,0" VerticalAlignment="Top" FontSize="14" Height="29" Width="117"/>

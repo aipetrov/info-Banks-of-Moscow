@@ -30,38 +30,58 @@ namespace Info_Banks_of_Moscow
 
         private void CreateAccountButton_Click(object sender, RoutedEventArgs e)
         {
-            Bank NewBank = new Bank(NameTextBox.Text, AddressTextBox.Text, MetroTextBox.Text, TelephoneTextBox.Text, RateComboBox.Text, OpinionTextBox.Text);
-
-            //FileStream fs = new FileStream("Banks.txt", FileMode.Append);
-            //using (StreamWriter sw = new StreamWriter(fs))
-            //{
-            //    sw.WriteLine(NewBank.Name);
-            //    sw.WriteLine(NewBank.Address);
-            //    sw.WriteLine(NewBank.Metro);
-            //    sw.WriteLine(NewBank.Rate);
-            //    sw.WriteLine(NewBank.OpinionFormer(NewBank));
-            //}
-
-            BinaryFormatter formatter = new BinaryFormatter();
-
-            List<Bank> Banks = new List<Bank>();
-
-
-            using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
+            try
             {
-                Banks = (List<Bank>)formatter.Deserialize(fs);
-            }
+                if ((NameTextBox.Text != "") && (MetroTextBox.Text != "") && (AddressTextBox.Text != "") && (TelephoneTextBox.Text != "") && (RateComboBox.Text != "") && (OpinionTextBox.Text != ""))
+                {
+                    if (NameTextBox.Text != "")
+                    {
+                        string s = NameTextBox.Text;
+                        s = s.Substring(0, 1).ToUpper() + s.Remove(0, 1);
+                        NameTextBox.Text = s;
+                    }
 
-            Banks.Add(NewBank);
+                    if (MetroTextBox.Text != "")
+                    {
+                        string s = MetroTextBox.Text;
+                        s = s.Substring(0, 1).ToUpper() + s.Remove(0, 1);
+                        MetroTextBox.Text = s;
+                    }
 
-            using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
-            {
-                formatter.Serialize(fs, Banks);
-            }
+                    if (AddressTextBox.Text != "")
+                    {
+                        string s = AddressTextBox.Text;
+                        s = s.Substring(0, 1).ToUpper() + s.Remove(0, 1);
+                        AddressTextBox.Text = s;
+                    }
 
-            ShowBanksPage ShowBanksPage = new ShowBanksPage();
-            NavigationService.Navigate(ShowBanksPage);
-            
+                    Bank newBank = new Bank(NameTextBox.Text, AddressTextBox.Text, MetroTextBox.Text, TelephoneTextBox.Text, RateComboBox.Text, OpinionTextBox.Text);
+
+                    BinaryFormatter formatter = new BinaryFormatter();
+
+                    List<Bank> banks = new List<Bank>();
+
+
+                    using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
+                    {
+                        banks = (List<Bank>)formatter.Deserialize(fs);
+                    }
+
+                    banks.Add(newBank);
+
+                    using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
+                    {
+                        formatter.Serialize(fs, banks);
+                    }
+
+                    ShowBanksPage ShowBanksPage = new ShowBanksPage();
+                    NavigationService.Navigate(ShowBanksPage);
+                }
+                else
+                {
+                    MessageBox.Show("Данные введены некорректно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            } catch { MessageBox.Show("Данные введены некорректно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void ShowBanksButton_Click(object sender, RoutedEventArgs e)

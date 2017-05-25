@@ -24,17 +24,21 @@ namespace Info_Banks_of_Moscow
     {
         public GuestPage()
         {
-            InitializeComponent();
-
-            BinaryFormatter formatter = new BinaryFormatter();
-
-            using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
+            try
             {
-                List<Bank> Banks = (List<Bank>)formatter.Deserialize(fs);
-                ShowBanksDataGrid.ItemsSource = Banks;
+                InitializeComponent();
+
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
+                {
+                    List<Bank> banks = (List<Bank>)formatter.Deserialize(fs);
+                    ShowBanksDataGrid.ItemsSource = banks;
 
 
+                }
             }
+            catch { MessageBox.Show("Что-то пошло не так...", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void FindBankButton_Click(object sender, RoutedEventArgs e)

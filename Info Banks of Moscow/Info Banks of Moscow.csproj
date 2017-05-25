@@ -69,30 +69,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddBank.xaml.cs">
-      <DependentUpon>AddBank.xaml</DependentUpon>
-    </Compile>
     <Compile Include="AddBankPage.xaml.cs">
       <DependentUpon>AddBankPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Bank.cs" />
-    <Compile Include="DeleteBank.xaml.cs">
-      <DependentUpon>DeleteBank.xaml</DependentUpon>
-    </Compile>
     <Compile Include="DeleteBankPage.xaml.cs">
       <DependentUpon>DeleteBankPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FindBank.xaml.cs">
-      <DependentUpon>FindBank.xaml</DependentUpon>
+    <Compile Include="EditBankNewPage.xaml.cs">
+      <DependentUpon>EditBankNewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditBankPage.xaml.cs">
+      <DependentUpon>EditBankPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="FindBankGuestPage.xaml.cs">
       <DependentUpon>FindBankGuestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="FindBankPage.xaml.cs">
       <DependentUpon>FindBankPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Guest.xaml.cs">
-      <DependentUpon>Guest.xaml</DependentUpon>
     </Compile>
     <Compile Include="GuestPage.xaml.cs">
       <DependentUpon>GuestPage.xaml</DependentUpon>
@@ -107,25 +101,11 @@
     <Compile Include="RegisterPage.xaml.cs">
       <DependentUpon>RegisterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RegisterWindow.xaml.cs">
-      <DependentUpon>RegisterWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ShowBanks.xaml.cs">
-      <DependentUpon>ShowBanks.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ShowBanksPage.xaml.cs">
       <DependentUpon>ShowBanksPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="User.cs" />
-    <Page Include="AddBank.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="AddBankPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DeleteBank.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -133,7 +113,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FindBank.xaml">
+    <Page Include="EditBankNewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditBankPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -142,10 +126,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="FindBankPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Guest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -173,19 +153,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ProfileWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="RegisterPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="RegisterWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShowBanks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,9 +163,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProfileWindow.xaml.cs">
-      <DependentUpon>ProfileWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -231,6 +196,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <Resource Include="icon1.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

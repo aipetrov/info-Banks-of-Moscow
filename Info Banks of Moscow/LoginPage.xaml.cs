@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,45 +30,73 @@ namespace Info_Banks_of_Moscow
             LoginTextBox.Focus();
         }
 
+        private string CalculateHash(string password)
+        {
+            MD5 md5 = MD5.Create();
+            var hash = md5.ComputeHash(Encoding.ASCII.GetBytes(password));
+            return Convert.ToBase64String(hash);
+        }
+
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            SqlConnection sqlcon = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = c:\users\андрей\documents\visual studio 2017\Projects\Info Banks of Moscow\Info Banks of Moscow\Database1.mdf; Integrated Security = True");
-            SqlDataAdapter sda = new SqlDataAdapter("Select Count (*) From [Table] where Login='" + LoginTextBox.Text + "'and Password='" + PasswordBox.Password + "'", sqlcon);
-
-            DataTable Table = new DataTable();
-            sda.Fill(Table);
-
-            if (Table.Rows[0][0].ToString() == "1")
+            try
             {
-                SqlCommand sqlcommand = new SqlCommand("Select Name FROM [Table] where Login='" + LoginTextBox.Text + "'and Password='" + PasswordBox.Password + "'", sqlcon);
-                sqlcon.Open();
+                SqlConnection sqlCon = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = c:\users\андрей\documents\visual studio 2017\Projects\Info Banks of Moscow\Info Banks of Moscow\Database1.mdf; Integrated Security = True");
+                SqlDataAdapter sda = new SqlDataAdapter("Select Count (*) From [Table] where Login='" + LoginTextBox.Text + "'and Password='" + PasswordBox.Password + "'", sqlCon);
 
-                SqlDataReader sqlreader = sqlcommand.ExecuteReader();
 
-                List<User> Users = new List<User>();
+                SqlCommand sqlCommandPassword = new SqlCommand("Select Password From [Table] where Login='" + LoginTextBox.Text + "'", sqlCon);
+                sqlCon.Open();
 
-                while (sqlreader.Read())
+                SqlDataReader sqlReaderPassword = sqlCommandPassword.ExecuteReader();
+
+                string[] hash = new string[1];
+
+                while (sqlReaderPassword.Read())
                 {
-                    User AuthorisedUser = new User(sqlreader.GetString(0), LoginTextBox.Text);
-                    Users.Add(AuthorisedUser);
-
+                    string _hash = sqlReaderPassword.GetString(0);
+                    hash[0] = _hash;
                 }
 
-                FileStream fs = new FileStream("name.txt", FileMode.Create);
-                using (StreamWriter sw = new StreamWriter(fs))
+                sqlReaderPassword.Close();
+                sqlCon.Close();
+
+
+                DataTable Table = new DataTable();
+                sda.Fill(Table);
+
+                if ((Table.Rows[0][0].ToString() == "1") && (CalculateHash(PasswordBox.Password) == CalculateHash(hash[0])))
                 {
-                    sw.Write(LoginTextBox.Text + " " + Users[0].Name);
+                    SqlCommand sqlCommand = new SqlCommand("Select Name From [Table] where Login='" + LoginTextBox.Text + "'and Password='" + PasswordBox.Password + "'", sqlCon);
+                    sqlCon.Open();
+
+                    SqlDataReader sqlReader = sqlCommand.ExecuteReader();
+
+                    List<User> Users = new List<User>();
+
+                    while (sqlReader.Read())
+                    {
+                        User authorisedUser = new User(sqlReader.GetString(0), LoginTextBox.Text);
+                        Users.Add(authorisedUser);
+
+                    }
+
+                    FileStream fs = new FileStream("name.txt", FileMode.Create);
+                    using (StreamWriter sw = new StreamWriter(fs))
+                    {
+                        sw.Write(LoginTextBox.Text + " " + Users[0].Name);
+                    }
+
+                    ProfilePage ProfilePage = new ProfilePage();
+                    NavigationService.Navigate(ProfilePage);
+                }
+                else
+                {
+                    MessageBox.Show("Пользователя с таким логином и паролем не существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
-                ProfilePage ProfilePage = new ProfilePage();
-                NavigationService.Navigate(ProfilePage);
             }
-            else
-            {
-                MessageBox.Show("Пользователя с таким логином и паролем не существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-
+            catch { MessageBox.Show("Что-то пошло не так...", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void GuestButton_Click(object sender, RoutedEventArgs e)

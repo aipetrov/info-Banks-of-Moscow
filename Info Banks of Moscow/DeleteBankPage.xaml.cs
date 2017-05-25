@@ -22,96 +22,103 @@ namespace Info_Banks_of_Moscow
     /// </summary>
     public partial class DeleteBankPage : Page
     {
-        List<Bank> AbleToDeleteBanks = new List<Bank>();
+        List<Bank> ableToDeleteBanks = new List<Bank>();
         public DeleteBankPage()
         {
-            InitializeComponent();
-            BinaryFormatter formatter = new BinaryFormatter();
-
-            List<Bank> Banks = new List<Bank>();
-
-            using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
+            try
             {
-                Banks = (List<Bank>)formatter.Deserialize(fs);
-            }
+                InitializeComponent();
+                BinaryFormatter formatter = new BinaryFormatter();
 
-            FileStream fsn = new FileStream("name.txt", FileMode.Open);
-            List<User> Users = new List<User>();
+                List<Bank> banks = new List<Bank>();
 
-            using (StreamReader sr = new StreamReader(fsn))
-            {
-
-                string str = sr.ReadLine();
-                string[] loginname = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                User AuthorisedUser = new User(loginname[1], loginname[0]);
-                Users.Add(AuthorisedUser);
-            }
-
-
-
-            for (int i = 0; i < Banks.Count; i++)
-            {
-                if (Banks[i].GetUserName(Banks[i]) == Users[0].Login)
+                using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
                 {
-                    AbleToDeleteBanks.Add(Banks[i]);
+                    banks = (List<Bank>)formatter.Deserialize(fs);
+                }
+
+                FileStream fsn = new FileStream("name.txt", FileMode.Open);
+                List<User> users = new List<User>();
+
+                using (StreamReader sr = new StreamReader(fsn))
+                {
+
+                    string str = sr.ReadLine();
+                    string[] loginName = str.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    User authorisedUser = new User(loginName[1], loginName[0]);
+                    users.Add(authorisedUser);
+                }
+
+
+
+                for (int i = 0; i < banks.Count; i++)
+                {
+                    if (banks[i].GetUserName(banks[i]) == users[0].Login)
+                    {
+                        ableToDeleteBanks.Add(banks[i]);
+                    }
+                }
+
+                //if (AbleToDeleteBanks.Count == 0)
+                //{   MessageBox.Show("Вы не можете удалить ни одного банка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                //    DeleteBankButton.IsEnabled = false;
+                //    ShowBanksDataGrid.IsEnabled = false;
+                //    AbleToDeleteBanksTextBox.IsEnabled = false;
+                //}
+
+                ShowBanksDataGrid.ItemsSource = ableToDeleteBanks;
+
+                for (int i = 0; i < ableToDeleteBanks.Count; i++)
+                {
+                    string str = i + "~" + ableToDeleteBanks[i].Name + "~" + ableToDeleteBanks[i].Address + "~" + ableToDeleteBanks[i].Metro + "~" + ableToDeleteBanks[i].Telephone;
+                    AbleToDeleteBanksTextBox.Items.Add(str);
                 }
             }
-
-            //if (AbleToDeleteBanks.Count == 0)
-            //{   MessageBox.Show("Вы не можете удалить ни одного банка.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    DeleteBankButton.IsEnabled = false;
-            //    ShowBanksDataGrid.IsEnabled = false;
-            //    AbleToDeleteBanksTextBox.IsEnabled = false;
-            //}
-
-            ShowBanksDataGrid.ItemsSource = AbleToDeleteBanks;
-
-            for (int i = 0; i < AbleToDeleteBanks.Count; i++)
-            {
-                string str = i + "-" + AbleToDeleteBanks[i].Name + "-" + AbleToDeleteBanks[i].Address + "-" + AbleToDeleteBanks[i].Metro + "-" + AbleToDeleteBanks[i].Telephone;
-                AbleToDeleteBanksTextBox.Items.Add(str);
-            }
+            catch { MessageBox.Show("Что-то пошло не так...", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void DeleteBankButton_Click(object sender, RoutedEventArgs e)
         {
-            string str = AbleToDeleteBanksTextBox.Text;
-            string[] bank = str.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
-            int numberOfDeletedBank = int.Parse(bank[0]);
-
-            Bank DeletedBank = AbleToDeleteBanks[numberOfDeletedBank];
-
-            BinaryFormatter formatter = new BinaryFormatter();
-
-            List<Bank> Banks = new List<Bank>();
-
-            using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
+            try
             {
-                Banks = (List<Bank>)formatter.Deserialize(fs);
-            }
+                string str = AbleToDeleteBanksTextBox.Text;
+                string[] bank = str.Split(new char[] { '~' }, StringSplitOptions.RemoveEmptyEntries);
+                int numberOfDeletedBank = int.Parse(bank[0]);
 
-            for (int i = 0; i < Banks.Count; i++)
-            {
-                if ((Banks[i].Name == DeletedBank.Name) &&
-                    (Banks[i].Address == DeletedBank.Address) &&
-                    (Banks[i].Metro == DeletedBank.Metro) &&
-                    (Banks[i].Telephone == DeletedBank.Telephone) &&
-                    (Banks[i].Rate == DeletedBank.Rate) &&
-                    (Banks[i].Opinion == DeletedBank.Opinion))
+                Bank deletedBank = ableToDeleteBanks[numberOfDeletedBank];
+
+                BinaryFormatter formatter = new BinaryFormatter();
+
+                List<Bank> banks = new List<Bank>();
+
+                using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
                 {
-                    Banks.Remove(Banks[i]);
+                    banks = (List<Bank>)formatter.Deserialize(fs);
                 }
+
+                for (int i = 0; i < banks.Count; i++)
+                {
+                    if ((banks[i].Name == deletedBank.Name) &&
+                        (banks[i].Address == deletedBank.Address) &&
+                        (banks[i].Metro == deletedBank.Metro) &&
+                        (banks[i].Telephone == deletedBank.Telephone) &&
+                        (banks[i].Rate == deletedBank.Rate) &&
+                        (banks[i].Opinion == deletedBank.Opinion))
+                    {
+                        banks.Remove(banks[i]);
+                    }
+                }
+
+                using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
+                {
+                    formatter.Serialize(fs, banks);
+                }
+
+                ShowBanksPage ShowBanksPage = new ShowBanksPage();
+                NavigationService.Navigate(ShowBanksPage);
+
             }
-
-            using (FileStream fs = new FileStream("Banks.dat", FileMode.OpenOrCreate))
-            {
-                formatter.Serialize(fs, Banks);
-            }
-
-            ShowBanksPage ShowBanksPage = new ShowBanksPage();
-            NavigationService.Navigate(ShowBanksPage);
-
-
+            catch { MessageBox.Show("Выберете банк для удаления.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void ShowBanksButton_Click(object sender, RoutedEventArgs e)
